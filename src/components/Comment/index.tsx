@@ -7,6 +7,7 @@ import {
     CommentContainer,
     CommentInfo,
     CommentText,
+    LikeLogo,
     Likes,
     Time,
 } from "./Comment.styles";
@@ -43,6 +44,7 @@ export const CommentUI = (props: THeaderProps) => {
     return (
         <CommentContainer key={comment.id}>
             <Avatar>{comment.author}</Avatar>
+
             <CommentBox>
                 <CommentInfo>
                     <AuthorBox>
@@ -50,7 +52,10 @@ export const CommentUI = (props: THeaderProps) => {
                         <Time>{new Date(comment.created).toDateString()}</Time>
                     </AuthorBox>
 
-                    <Likes onClick={likesHandler}> w {commentLikes}</Likes>
+                    <Likes onClick={likesHandler}>
+                        <LikeLogo $isLiked={isLiked}/>
+                        {commentLikes}
+                    </Likes>
                 </CommentInfo>
 
                 <CommentText>{comment.text}</CommentText>
