@@ -7,3 +7,5 @@ export type TComment = {
     likes: number;
     children?: any[];
 }
+
+export type TSetTotalLikes = (prevLikes: (prevLikes: number) => number)=> void

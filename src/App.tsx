@@ -2,18 +2,21 @@ import React, {useEffect, useState} from "react";
 import "./App.css";
 import getCommentsRequest from "./api/comments/getCommentsRequest";
 import {getCommentsTree} from "./helpers/getCommentsTree";
-import {TComment} from "./shared/types";
+import {TComment, TSetTotalLikes} from "./shared/types";
 import {Header} from "./components/Header";
 import {CommentUI} from "./components/Comment";
 
-const renderItems = (items: any[]) => {
+const renderItems = (items: any[], setTotalLikes: TSetTotalLikes) => {
     return items.map((item: TComment) => {
         if (item?.children) {
             return (
                 <div key={item.id} className="CommentWrapper">
-                    <CommentUI comment={item}/>
+                    <CommentUI comment={item} setTotalLikes={setTotalLikes} />
+
                     <div className="NestedCommentWrapper"
-                         key={item.id + 1}>{renderItems(item.children)}</div>
+                         key={item.id + 1}>
+                        {renderItems(item.children, setTotalLikes)}
+                    </div>
                 </div>
             );
         }
@@ -84,9 +87,9 @@ export const App = () => {
 
     return (
         <div className="App">
-            <Header totalLikes={totalLikes} totalComments={totalComments}/>
+            <Header totalLikes={totalLikes} totalComments={totalComments} />
 
-            {commentsTree && renderItems(commentsTree)}
+            {commentsTree && renderItems(commentsTree, setTotalLikes)}
 
             <button onClick={changePage}>Загрузить следующие комментарии</button>
         </div>
