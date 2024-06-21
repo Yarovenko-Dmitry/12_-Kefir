@@ -23,6 +23,10 @@ const renderItems = (items: any[]) => {
 export const App = () => {
     const [commentsData, setCommentsData] = useState<any>({});
     const [currentPage, setCurrentPage] = useState(1);
+
+    const [totalLikes, setTotalLikes] = useState(0);
+    const [totalComments, setTotalComments] = useState(0);
+
     const [error, setError] = useState<any>(null);
 
     useEffect(() => {
@@ -40,9 +44,21 @@ export const App = () => {
         fetchComments();
     }, [currentPage]);
 
+    useEffect(() => {
+        // for correct counting on each individual page
+        setTotalLikes(0);
+        setTotalComments(0);
+
+        if (commentsData.data) {
+            commentsData.data.forEach((comment: TComment) => {
+                setTotalLikes((prevLikes: number) => prevLikes + comment.likes);
+                setTotalComments((prevComments: number) => prevComments + 1);
+            });
+        }
+    }, [commentsData.data]);
+
     const changePage = () => {
         setCurrentPage(prevPage => prevPage + 1);
-        console.log(">>> changePage :");
     };
 
     let commentsTree;
@@ -66,6 +82,10 @@ export const App = () => {
 
     return (
         <div>
+            <h2>{totalLikes}</h2>
+            =====================
+            <h2>{totalComments}</h2>
+            =====================
             {commentsTree && renderItems(commentsTree)}
 
             <button onClick={changePage}>Загрузить следующие комментарии</button>
