@@ -1,28 +1,41 @@
 import React, {useEffect, useState} from "react";
 import "./App.css";
 import getCommentsRequest from "./api/comments/getCommentsRequest";
+import {getCommentsTree} from "./helpers/getCommentsTree";
+import {TComment} from "./shared/types";
 
-type TComment = {
-    id: number;
-    created: Date;
-    text: string;
-    author: number;
-    parent: number | null;
-    likes: number;
-}
+const renderItems = (items: any[]) => {
+    return items.map((item: TComment) => {
+        if (item?.children) {
+            return (
+                <div key={item.id}>
+                    <div key={item.id}>{item.id} *** {item.author} *** {new Date(item.created).toDateString()}</div>
+                    <div style={{marginLeft: "10px"}}
+                         key={item.id + 1}>{renderItems(item.children)}</div>
+                </div>
+            );
+        }
+
+        return null;
+    });
+};
 
 export const App = () => {
     const [commentsData, setCommentsData] = useState<any>({});
     const [currentPage, setCurrentPage] = useState(1);
-
-    console.log(">>> commentsData :", commentsData);
+    const [error, setError] = useState<any>(null);
 
     useEffect(() => {
-        async function fetchComments() {
-            const response = await getCommentsRequest(currentPage);
-            console.log(">>> response :", response);
-            setCommentsData(response);
-        }
+        const fetchComments = async () => {
+            try {
+                const response = await getCommentsRequest(currentPage);
+                setCommentsData(response);
+                setError(null);
+            } catch (err: any) {
+                setError(err.message);
+                console.error("Error fetching data:", err);
+            }
+        };
 
         fetchComments();
     }, [currentPage]);
@@ -32,29 +45,28 @@ export const App = () => {
         console.log(">>> changePage :");
     };
 
-
-    let comments = commentsData.data;
+    let commentsTree;
 
     if (commentsData.data) {
-        comments = commentsData.data.sort((a: TComment, b: TComment) => a.id - b.id);
-        console.log(">>> comments  sort:", comments);
+        commentsTree = getCommentsTree(commentsData.data);
+    }
 
+    if (error) {
+        return (
+            <>
+                <div>Ошибка сети: {error}</div>
+                <button onClick={changePage}>Загрузить следующие комментарии</button>
+            </>
+        );
+    }
+
+    if (!commentsData.data) {
+        return <div>Загрузка данных...</div>;
     }
 
     return (
         <div>
-            {comments && comments.map((comment: TComment) => (
-                <div key={comment.id}>
-                    <h2 style={{color: "green"}}>author: {comment.author}</h2>
-                    <h3>id: {comment.id}</h3>
-                    <p>text: {comment.text}</p>
-                    <h3>likes: {comment.likes}</h3>
-                    <h3>created: {new Date(comment.created).toDateString()}</h3>
-                    <p style={{color: "red"}}>parent: {comment.parent}</p>
-
-                    ************************
-                </div>
-            ))}
+            {commentsTree && renderItems(commentsTree)}
 
             <button onClick={changePage}>Загрузить следующие комментарии</button>
         </div>
