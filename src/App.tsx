@@ -3,14 +3,16 @@ import "./App.css";
 import getCommentsRequest from "./api/comments/getCommentsRequest";
 import {getCommentsTree} from "./helpers/getCommentsTree";
 import {TComment} from "./shared/types";
+import {Header} from "./components/Header";
+import {CommentUI} from "./components/Comment";
 
 const renderItems = (items: any[]) => {
     return items.map((item: TComment) => {
         if (item?.children) {
             return (
-                <div key={item.id}>
-                    <div key={item.id}>{item.id} *** {item.author} *** {new Date(item.created).toDateString()}</div>
-                    <div style={{marginLeft: "10px"}}
+                <div key={item.id} className="CommentWrapper">
+                    <CommentUI comment={item}/>
+                    <div className="NestedCommentWrapper"
                          key={item.id + 1}>{renderItems(item.children)}</div>
                 </div>
             );
@@ -81,11 +83,9 @@ export const App = () => {
     }
 
     return (
-        <div>
-            <h2>{totalLikes}</h2>
-            =====================
-            <h2>{totalComments}</h2>
-            =====================
+        <div className="App">
+            <Header totalLikes={totalLikes} totalComments={totalComments}/>
+
             {commentsTree && renderItems(commentsTree)}
 
             <button onClick={changePage}>Загрузить следующие комментарии</button>
