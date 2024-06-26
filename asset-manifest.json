@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.a19a60e8.css",
-    "main.js": "/static/js/main.0be4a113.js",
-    "static/media/han-solo.jpg": "/static/media/han-solo.84705bac66e252072c67.jpg",
-    "static/media/like.svg": "/static/media/like.96c7e79db54529fc06ae50a03915a7fe.svg",
-    "static/media/dislike.svg": "/static/media/dislike.cfb3be2bd04ab7babc1524c3c3913793.svg",
-    "index.html": "/index.html",
-    "main.a19a60e8.css.map": "/static/css/main.a19a60e8.css.map",
-    "main.0be4a113.js.map": "/static/js/main.0be4a113.js.map"
+    "main.css": "/12_-Kefir/static/css/main.a19a60e8.css",
+    "main.js": "/12_-Kefir/static/js/main.1b6f732a.js",
+    "static/media/han-solo.jpg": "/12_-Kefir/static/media/han-solo.84705bac66e252072c67.jpg",
+    "static/media/like.svg": "/12_-Kefir/static/media/like.96c7e79db54529fc06ae50a03915a7fe.svg",
+    "static/media/dislike.svg": "/12_-Kefir/static/media/dislike.cfb3be2bd04ab7babc1524c3c3913793.svg",
+    "index.html": "/12_-Kefir/index.html",
+    "main.a19a60e8.css.map": "/12_-Kefir/static/css/main.a19a60e8.css.map",
+    "main.1b6f732a.js.map": "/12_-Kefir/static/js/main.1b6f732a.js.map"
   },
   "entrypoints": [
     "static/css/main.a19a60e8.css",
-    "static/js/main.0be4a113.js"
+    "static/js/main.1b6f732a.js"
   ]
 }
