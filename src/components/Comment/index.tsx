@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {
-    AvatarWrapper,
     Author,
     AuthorBox,
+    AvatarWrapper,
     CommentBox,
     CommentContainer,
     CommentInfo,
@@ -13,6 +13,7 @@ import {
 } from "./Comment.styles";
 import {TComment, TSetTotalLikes} from "../../shared/types";
 import Avatar from "react-avatar";
+import {getPublishedDate} from "../../helpers/getPublishedDate";
 
 type TAuthorData = {
     id: number,
@@ -60,7 +61,7 @@ export const CommentUI = (props: THeaderProps) => {
                 <CommentInfo>
                     <AuthorBox>
                         <Author>{authorData.name}</Author>
-                        <Time>{new Date(comment.created).toDateString()}</Time>
+                        <Time>{getPublishedDate(comment.created)}</Time>
                     </AuthorBox>
 
                     <Likes onClick={likesHandler}>
