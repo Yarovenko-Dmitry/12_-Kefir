@@ -80,10 +80,10 @@ export const App = () => {
 
     if (error) {
         return (
-            <>
+            <div className="ErrorWrapper">
                 <div>Ошибка сети: {error}</div>
-                <button onClick={changePage}>Загрузить следующие комментарии</button>
-            </>
+                <button className="ErrorButton" onClick={changePage}>Загрузить следующие комментарии</button>
+            </div>
         );
     }
 

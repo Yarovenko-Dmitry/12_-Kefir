@@ -4,8 +4,11 @@
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
-
     width: 50%;
+
+    @media (max-width: 640px) {
+        width: 90%;
+    }
 }
 
 .CommentWrapper {
@@ -14,4 +17,15 @@
 
 .NestedCommentWrapper {
     margin-left: 16px;
+}
+
+.ErrorWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 200px auto;
+}
+
+.ErrorButton {
+    margin-top: 16px;
 }
