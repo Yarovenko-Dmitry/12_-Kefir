@@ -49,6 +49,7 @@ export const Author = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    color: white;
 `;
 
 export const Time = styled.div`
@@ -56,7 +57,9 @@ export const Time = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    color: blue;
+    
+    color: white;
+    filter: brightness(0.6);
 `;
 
 export const Likes = styled.div`
@@ -64,6 +67,7 @@ export const Likes = styled.div`
     align-items: center;
     justify-content: end;
     width: 100%;
+    color: white;
 `;
 
 export const LikeLogo = styled.div<TLikeLogo>`
@@ -78,4 +82,5 @@ export const CommentText = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    color: white;
 `;

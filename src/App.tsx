@@ -92,12 +92,14 @@ export const App = () => {
     }
 
     return (
-        <div className="App">
-            <Header totalLikes={totalLikes} totalComments={totalComments} />
+        <div className="AppWrapper">
+            <div className="App">
+                <Header totalLikes={totalLikes} totalComments={totalComments} />
 
-            {commentsTree && authorsData.length && renderItems(commentsTree, authorsData, setTotalLikes)}
+                {commentsTree && authorsData.length && renderItems(commentsTree, authorsData, setTotalLikes)}
 
-            <button onClick={changePage}>Загрузить следующие комментарии</button>
+                <button onClick={changePage}>Загрузить следующие комментарии</button>
+            </div>
         </div>
     );
 };
