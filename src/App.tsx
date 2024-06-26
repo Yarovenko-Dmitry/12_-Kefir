@@ -5,17 +5,18 @@ import {getCommentsTree} from "./helpers/getCommentsTree";
 import {TComment, TSetTotalLikes} from "./shared/types";
 import {Header} from "./components/Header";
 import {CommentUI} from "./components/Comment";
+import getAuthorsRequest from "./api/authors/getAuthorsRequest";
 
-const renderItems = (items: any[], setTotalLikes: TSetTotalLikes) => {
+const renderItems = (items: any[], authorsData: any[], setTotalLikes: TSetTotalLikes) => {
     return items.map((item: TComment) => {
         if (item?.children) {
             return (
                 <div key={item.id} className="CommentWrapper">
-                    <CommentUI comment={item} setTotalLikes={setTotalLikes} />
+                    <CommentUI comment={item} setTotalLikes={setTotalLikes} authorData={authorsData[item.author - 1]} />
 
                     <div className="NestedCommentWrapper"
                          key={item.id + 1}>
-                        {renderItems(item.children, setTotalLikes)}
+                        {renderItems(item.children, authorsData, setTotalLikes)}
                     </div>
                 </div>
             );
@@ -27,6 +28,7 @@ const renderItems = (items: any[], setTotalLikes: TSetTotalLikes) => {
 
 export const App = () => {
     const [commentsData, setCommentsData] = useState<any>({});
+    const [authorsData, setAuthorsData] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
 
     const [totalLikes, setTotalLikes] = useState(0);
@@ -37,8 +39,12 @@ export const App = () => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await getCommentsRequest(currentPage);
-                setCommentsData(response);
+                const commentsRequest = await getCommentsRequest(currentPage);
+                setCommentsData(commentsRequest);
+
+                const authorsRequest = await getAuthorsRequest();
+                setAuthorsData(authorsRequest);
+
                 setError(null);
             } catch (err: any) {
                 setError(err.message);
@@ -89,7 +95,7 @@ export const App = () => {
         <div className="App">
             <Header totalLikes={totalLikes} totalComments={totalComments} />
 
-            {commentsTree && renderItems(commentsTree, setTotalLikes)}
+            {commentsTree && authorsData.length && renderItems(commentsTree, authorsData, setTotalLikes)}
 
             <button onClick={changePage}>Загрузить следующие комментарии</button>
         </div>

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {
+    AvatarWrapper,
     Author,
     AuthorBox,
-    Avatar,
     CommentBox,
     CommentContainer,
     CommentInfo,
@@ -12,15 +12,24 @@ import {
     Time,
 } from "./Comment.styles";
 import {TComment, TSetTotalLikes} from "../../shared/types";
+import Avatar from "react-avatar";
+
+type TAuthorData = {
+    id: number,
+    name: string,
+    avatar: string,
+}
 
 type THeaderProps = {
     comment: TComment;
+    authorData: TAuthorData;
     setTotalLikes: TSetTotalLikes;
 }
 
 export const CommentUI = (props: THeaderProps) => {
     const {
         comment,
+        authorData,
         setTotalLikes,
     } = props;
 
@@ -43,17 +52,19 @@ export const CommentUI = (props: THeaderProps) => {
 
     return (
         <CommentContainer key={comment.id}>
-            <Avatar>{comment.author}</Avatar>
+            <AvatarWrapper>
+                <Avatar src={authorData.avatar} size={"50"} round={true} />
+            </AvatarWrapper>
 
             <CommentBox>
                 <CommentInfo>
                     <AuthorBox>
-                        <Author>Author</Author>
+                        <Author>{authorData.name}</Author>
                         <Time>{new Date(comment.created).toDateString()}</Time>
                     </AuthorBox>
 
                     <Likes onClick={likesHandler}>
-                        <LikeLogo $isLiked={isLiked}/>
+                        <LikeLogo $isLiked={isLiked} />
                         {commentLikes}
                     </Likes>
                 </CommentInfo>

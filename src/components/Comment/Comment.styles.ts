@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 // @ts-ignore
 import like from "../../assets/likes/like.svg";
 // @ts-ignore
@@ -14,20 +13,10 @@ export const CommentContainer = styled.div`
     justify-content: space-between;
     width: 100%;
     padding-bottom: 16px;
-
-    //border: 1px solid green;
 `;
 
-export const Avatar = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50px;
-    height: 50px;
-    margin-right: 8px;
-    border-radius: 50%;
-
-    //border: 1px solid rebeccapurple;
+export const AvatarWrapper = styled.div`
+    margin-right: 16px;
 `;
 
 export const CommentBox = styled.div`
@@ -37,8 +26,6 @@ export const CommentBox = styled.div`
     flex-direction: column;
     width: 100%;
     margin-top: 8px;
-
-    //background-color: rebeccapurple;
 `;
 
 export const CommentInfo = styled.div`
@@ -47,8 +34,6 @@ export const CommentInfo = styled.div`
     justify-content: space-between;
     width: 100%;
     margin-bottom: 8px;
-
-    //background-color: red;
 `;
 
 export const AuthorBox = styled.div`
@@ -57,8 +42,6 @@ export const AuthorBox = styled.div`
     justify-content: space-between;
     flex-direction: column;
     width: 100%;
-
-    //background-color: red;
 `;
 
 export const Author = styled.div`
@@ -66,8 +49,6 @@ export const Author = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
-
-    //background-color: rebeccapurple;
 `;
 
 export const Time = styled.div`
@@ -76,8 +57,6 @@ export const Time = styled.div`
     justify-content: space-between;
     width: 100%;
     color: blue;
-
-    //background-color: royalblue;
 `;
 
 export const Likes = styled.div`
@@ -85,8 +64,6 @@ export const Likes = styled.div`
     align-items: center;
     justify-content: end;
     width: 100%;
-
-    //background-color: green;
 `;
 
 export const LikeLogo = styled.div<TLikeLogo>`
@@ -101,6 +78,4 @@ export const CommentText = styled.div`
     align-items: center;
     justify-content: space-between;
     width: 100%;
-
-    //background-color: grey;
 `;
